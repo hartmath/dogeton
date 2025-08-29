@@ -13,8 +13,8 @@ const emailForm = document.getElementById('emailForm');
 const emailInput = document.getElementById('emailInput');
 
 // Set launch date - Fixed date in Germany Time (CET/CEST)
-// September 1st, 2025 at midnight Germany time
-const launchDate = new Date('2025-09-01T00:00:00+02:00').getTime(); // Germany summer time (CEST)
+// Tuesday at 8pm Berlin time
+const launchDate = new Date('2025-01-07T20:00:00+01:00').getTime(); // Berlin time (CET)
 
 // Countdown timer function
 function updateCountdown() {
