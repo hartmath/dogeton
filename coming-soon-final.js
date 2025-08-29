@@ -12,9 +12,9 @@ const closeModal = document.getElementById('closeModal');
 const emailForm = document.getElementById('emailForm');
 const emailInput = document.getElementById('emailInput');
 
-// Set launch date - 3 days from now as specified
-const now = new Date();
-const launchDate = new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000)).getTime();
+// Set launch date - Fixed date that won't reset on refresh
+// Change this to your actual launch date
+const launchDate = new Date('2025-09-01T00:00:00').getTime();
 
 // Countdown timer function
 function updateCountdown() {

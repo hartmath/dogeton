@@ -89,8 +89,9 @@
     <div id="crypto-container"></div>
 
     <script>
-        // Countdown Timer
-        const launchDate = new Date().getTime() + (3 * 24 * 60 * 60 * 1000);
+        // Countdown Timer - Fixed launch date 
+        // Set to September 1st, 2025 - change this to your actual launch date
+        const launchDate = new Date('2025-09-01T00:00:00').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();
