@@ -64,7 +64,7 @@
         <!-- Countdown -->
         <div class="flex gap-2 sm:gap-4 justify-center mb-4 sm:mb-6 flex-wrap max-w-md mx-auto">
             <div class="bg-gray-800 rounded-lg p-2 sm:p-3 md:p-4 min-w-[60px] sm:min-w-[70px] md:min-w-[80px] flex-1">
-                <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400" id="days">3</div>
+                <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-400" id="days">00</div>
                 <div class="text-xs sm:text-sm text-gray-300">Days</div>
             </div>
             <div class="bg-gray-800 rounded-lg p-2 sm:p-3 md:p-4 min-w-[60px] sm:min-w-[70px] md:min-w-[80px] flex-1">
@@ -122,33 +122,51 @@
     <div id="crypto-container"></div>
 
     <script>
-        // Countdown Timer - Fixed launch date in Germany Time (CET/CEST)
-        // Set to Tuesday at 8pm Berlin time
-        const launchDate = new Date('2025-01-07T20:00:00+01:00').getTime(); // Berlin time (CET)
-        
+        // === Countdown to next Tuesday 20:00 Berlin time ===
+        function getNextTuesday20() {
+            const now = new Date();
+            const berlinNow = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Berlin" }));
+            const day = berlinNow.getDay(); // Sunday=0, Monday=1, Tuesday=2...
+            let daysUntilTuesday = (2 - day + 7) % 7;
+
+            let target = new Date(berlinNow);
+            target.setDate(berlinNow.getDate() + daysUntilTuesday);
+            target.setHours(20, 0, 0, 0); // 20:00
+
+            if (target <= berlinNow) {
+                target.setDate(target.getDate() + 7); // move to next week
+            }
+
+            return target;
+        }
+
+        let launchDate = getNextTuesday20().getTime();
+
         function updateCountdown() {
-            // Get current time in Germany timezone
-            const now = new Date().toLocaleString("en-US", {timeZone: "Europe/Berlin"});
+            const now = new Date().toLocaleString("en-US", { timeZone: "Europe/Berlin" });
             const germanyTime = new Date(now).getTime();
-            const distance = launchDate - germanyTime;
-            
-            if (distance < 0) return;
-            
+            let distance = launchDate - germanyTime;
+
+            if (distance <= 0) {
+                launchDate = getNextTuesday20().getTime(); // reset to next Tuesday
+                distance = launchDate - germanyTime;
+            }
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
+
             document.getElementById('days').textContent = days.toString().padStart(2, '0');
             document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
             document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
-        
+
         setInterval(updateCountdown, 1000);
         updateCountdown();
-        
-        // Floating Crypto Symbols
+
+        // === Floating Crypto Symbols ===
         function createCryptoSymbol() {
             const symbols = ['₿', '$', '💎', '🚀'];
             const symbol = document.createElement('div');
@@ -156,23 +174,17 @@
             symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
             symbol.style.left = Math.random() * window.innerWidth + 'px';
             symbol.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            
             document.getElementById('crypto-container').appendChild(symbol);
-            
             setTimeout(() => symbol.remove(), 10000);
         }
-        
         setInterval(createCryptoSymbol, 2000);
-        
-        // Video Error Handling
+
+        // === Video Error Handling ===
         const video = document.querySelector('video');
         video.addEventListener('error', () => {
             console.log('Video failed to load');
             video.parentElement.innerHTML = '<div class="flex items-center justify-center h-full text-gray-400">Video not available</div>';
         });
-        
-        video.addEventListener('loadstart', () => console.log('Video loading...'));
-        video.addEventListener('canplay', () => console.log('Video ready to play'));
     </script>
 </body>
 </html>
