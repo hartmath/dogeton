@@ -1,0 +1,17 @@
+{
+  "name": "bubbleheads-coming-soon",
+  "version": "1.0.0",
+  "description": "The Bubbleheads - Coming Soon Page",
+  "main": "coming-soon-final.html",
+  "scripts": {
+    "dev": "serve .",
+    "build": "echo 'No build step needed for static site'",
+    "start": "serve ."
+  },
+  "keywords": ["bubbleheads", "crypto", "nft", "coming-soon"],
+  "author": "The Bubbleheads",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

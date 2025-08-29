@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bubbleheads - Coming Soon</title>
+    <link rel="stylesheet" href="coming-soon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="video-container">
+        <video id="bgVideo" autoplay muted loop>
+            <source src="background-video.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="content-container">
+        <div class="main-content">
+            <div class="logo-section">
+                <div class="logo-icon">🫧</div>
+                <h1 class="brand-name">The Bubbleheads</h1>
+            </div>
+            
+            <div class="header-section">
+                <h2 class="dramatic-header">
+                    <span class="line-1">YOU ARE NOT READY</span>
+                    <span class="line-2">FOR WHAT IS COMING!</span>
+                </h2>
+            </div>
+
+            <div class="countdown-section">
+                <div class="countdown" id="countdown">
+                    <div class="time-block">
+                        <span class="time" id="days">00</span>
+                        <span class="label">DAYS</span>
+                    </div>
+                    <div class="time-block">
+                        <span class="time" id="hours">00</span>
+                        <span class="label">HOURS</span>
+                    </div>
+                    <div class="time-block">
+                        <span class="time" id="minutes">00</span>
+                        <span class="label">MINUTES</span>
+                    </div>
+                    <div class="time-block">
+                        <span class="time" id="seconds">00</span>
+                        <span class="label">SECONDS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <p class="subtitle">Something revolutionary is brewing in the digital realm...</p>
+                <button class="notify-btn" id="notifyBtn">NOTIFY ME WHEN READY</button>
+                <a href="index.html" class="preview-link">Preview the Experience</a>
+            </div>
+
+            <div class="social-section">
+                <p class="social-text">Follow the journey</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">💬</a>
+                    <a href="#" class="social-link">🌊</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Email notification modal -->
+    <div class="modal" id="emailModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Get Ready for Launch</h3>
+            <p>Enter your email to be the first to know when The Bubbleheads experience goes live!</p>
+            <form id="emailForm">
+                <input type="email" id="emailInput" placeholder="your.email@example.com" required>
+                <button type="submit">NOTIFY ME</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="coming-soon.js"></script>
+</body>
+</html>
