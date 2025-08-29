@@ -12,14 +12,16 @@ const closeModal = document.getElementById('closeModal');
 const emailForm = document.getElementById('emailForm');
 const emailInput = document.getElementById('emailInput');
 
-// Set launch date - Fixed date that won't reset on refresh
-// Change this to your actual launch date
-const launchDate = new Date('2025-09-01T00:00:00').getTime();
+// Set launch date - Fixed date in Germany Time (CET/CEST)
+// September 1st, 2025 at midnight Germany time
+const launchDate = new Date('2025-09-01T00:00:00+02:00').getTime(); // Germany summer time (CEST)
 
 // Countdown timer function
 function updateCountdown() {
-    const currentTime = new Date().getTime();
-    const distance = launchDate - currentTime;
+    // Get current time in Germany timezone
+    const now = new Date().toLocaleString("en-US", {timeZone: "Europe/Berlin"});
+    const germanyTime = new Date(now).getTime();
+    const distance = launchDate - germanyTime;
 
     if (distance < 0) {
         // Launch time has passed
