@@ -1,20 +1,27 @@
 {
   "version": 2,
-  "name": "bubbleheads-coming-soon",
+  "name": "dogeton",
   "builds": [
     {
-      "src": "coming-soon-final.html",
+      "src": "index.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/",
-      "dest": "/coming-soon-final.html"
-    },
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
     {
-      "src": "/index.html",
-      "dest": "/coming-soon-final.html"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
     }
   ]
 }
