@@ -3,253 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
-    />
-
     <title>The Bubbleheads - Coming Soon</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Copy all the CSS from coming-soon-final.html */
-        /* Crypto Animation Styles */
-        .crypto-glow {
-            animation: cryptoGlow 2s ease-in-out infinite alternate;
-            filter: drop-shadow(0 0 10px #fbbf24);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: black; 
+            overflow-x: hidden;
         }
         
-        .crypto-text-glow {
-            animation: textGlow 3s ease-in-out infinite;
+        .glow-text {
             text-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24;
         }
         
-        .crypto-button-subtle {
-            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-            animation: buttonPulseSubtle 3s ease-in-out infinite;
-        }
-        
-        .crypto-border-subtle {
-            box-shadow: 0 0 5px rgba(251, 191, 36, 0.4);
-            animation: borderGlowSubtle 3s ease-in-out infinite;
-        }
-        
-        .crypto-animations {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        /* Floating Crypto Symbols - SVG */
         .crypto-symbol {
             position: absolute;
             color: #fbbf24;
             font-size: 24px;
-            animation: floatUp 8s linear infinite;
+            animation: float 8s linear infinite;
             opacity: 0.7;
-            fill: #fbbf24;
-            filter: drop-shadow(0 0 4px #fbbf24);
         }
         
-        /* Golden Particles */
-        .golden-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, #fbbf24, #f59e0b);
-            border-radius: 50%;
-            animation: particleFloat 6s linear infinite;
-            box-shadow: 0 0 6px #fbbf24;
-        }
-        
-        /* Blockchain Network Lines */
-        .blockchain-line {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #fbbf24, transparent);
-            animation: dataFlow 3s linear infinite;
-            opacity: 0.6;
-        }
-        
-        /* Money Flow Animation */
-        .money-symbol {
-            position: absolute;
-            color: #fbbf24;
-            font-size: 20px;
-            animation: moneyFlow 4s ease-in-out infinite;
-            text-shadow: 0 0 10px #fbbf24;
-        }
-        
-        /* Keyframe Animations */
-        @keyframes cryptoGlow {
-            0% { filter: drop-shadow(0 0 10px #fbbf24); }
-            100% { filter: drop-shadow(0 0 20px #fbbf24) drop-shadow(0 0 30px #f59e0b); }
-        }
-        
-        @keyframes textGlow {
-            0%, 100% { text-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24; }
-            50% { text-shadow: 0 0 30px #fbbf24, 0 0 60px #fbbf24, 0 0 80px #f59e0b; }
-        }
-        
-        @keyframes buttonPulseSubtle {
-            0%, 100% { box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3); }
-            50% { box-shadow: 0 4px 12px rgba(251, 191, 36, 0.5); }
-        }
-        
-        @keyframes borderGlowSubtle {
-            0%, 100% { box-shadow: 0 0 5px rgba(251, 191, 36, 0.4); }
-            50% { box-shadow: 0 0 8px rgba(251, 191, 36, 0.6); }
-        }
-        
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
             10% { opacity: 0.7; }
             90% { opacity: 0.7; }
-            100% {
-                transform: translateY(-10vh) translateX(100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% { opacity: 1; transform: scale(1); }
-            90% { opacity: 1; }
-            100% {
-                transform: translateY(-10vh) translateX(50px) scale(0);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes dataFlow {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100vw); }
-        }
-        
-        @keyframes moneyFlow {
-            0% {
-                transform: translateX(-50px) translateY(0) scale(0.8);
-                opacity: 0;
-            }
-            25% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            75% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                transform: translateX(100vw) translateY(-20px) scale(0.8);
-                opacity: 0;
-            }
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .crypto-symbol { font-size: 18px; }
-            .money-symbol { font-size: 16px; }
-            .golden-particle { width: 3px; height: 3px; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
-<body>
-    <div class="relative flex size-full min-h-screen flex-col bg-black dark group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
-      <div class="layout-container flex h-full grow flex-col">
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <h1 class="text-white tracking-light text-[32px] font-bold leading-tight px-4 text-center pb-3 pt-6 crypto-text-glow">YOU ARE NOT READY FOR WHAT IS COMING!</h1>
-            <div class="p-4">
-              <div
-                class="relative flex items-center justify-center bg-black rounded-lg overflow-hidden"
-                style='min-height: 400px;'
-                id="videoContainer"
-              >
-                <button class="flex shrink-0 items-center justify-center rounded-full size-16 bg-black/40 text-white hover:bg-black/60 transition-all duration-300 transform hover:scale-110 z-10 hidden" id="playButton">
-                  <div class="text-inherit" data-icon="Play" data-size="24px" data-weight="fill">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"
-                      ></path>
-                    </svg>
-                  </div>
-                </button>
-                
-                <!-- Video element that will autoplay without controls -->
-                <video class="absolute inset-0 w-full h-full rounded-lg" id="videoElement" autoplay muted loop playsinline preload="auto" style="object-fit: contain; background: #000;">
-                    <source src="video.mp4?v=2" type="video/mp4">
-                    Your browser does not support the video tag.
+<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center">
+    
+    <div class="container mx-auto px-4 text-center">
+        <!-- Header -->
+        <h1 class="text-4xl md:text-6xl font-bold mb-8 glow-text">
+            YOU ARE NOT READY FOR WHAT IS COMING!
+        </h1>
+        
+        <!-- Video Container -->
+        <div class="mb-8 mx-auto max-w-4xl">
+            <div class="relative bg-black rounded-lg overflow-hidden aspect-video">
+                <video 
+                    class="w-full h-full object-contain" 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline 
+                    preload="auto"
+                >
+                    <source src="./video.mp4" type="video/mp4">
+                    <div class="flex items-center justify-center h-full text-gray-400">
+                        Video loading...
+                    </div>
                 </video>
-              </div>
             </div>
-            <div class="flex gap-4 py-6 px-4">
-              <div class="flex grow basis-0 flex-col items-stretch gap-4">
-                <div class="flex h-14 grow items-center justify-center rounded-lg px-3 bg-[#363636] hover:bg-[#404040] transition-colors duration-300">
-                  <p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" id="days">3</p>
-                </div>
-                <div class="flex items-center justify-center"><p class="text-white text-sm font-normal leading-normal">Days</p></div>
-              </div>
-              <div class="flex grow basis-0 flex-col items-stretch gap-4">
-                <div class="flex h-14 grow items-center justify-center rounded-lg px-3 bg-[#363636] hover:bg-[#404040] transition-colors duration-300">
-                  <p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" id="hours">00</p>
-                </div>
-                <div class="flex items-center justify-center"><p class="text-white text-sm font-normal leading-normal">Hours</p></div>
-              </div>
-              <div class="flex grow basis-0 flex-col items-stretch gap-4">
-                <div class="flex h-14 grow items-center justify-center rounded-lg px-3 bg-[#363636] hover:bg-[#404040] transition-colors duration-300">
-                  <p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" id="minutes">00</p>
-                </div>
-                <div class="flex items-center justify-center"><p class="text-white text-sm font-normal leading-normal">Minutes</p></div>
-              </div>
-              <div class="flex grow basis-0 flex-col items-stretch gap-4">
-                <div class="flex h-14 grow items-center justify-center rounded-lg px-3 bg-[#363636] hover:bg-[#404040] transition-colors duration-300">
-                  <p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" id="seconds">00</p>
-                </div>
-                <div class="flex items-center justify-center"><p class="text-white text-sm font-normal leading-normal">Seconds</p></div>
-              </div>
-            </div>
-            
-            <!-- Additional Content -->
-            <div class="flex flex-col items-center gap-6 py-8 px-4">
-                <p class="text-gray-400 text-lg text-center">
-                    The future of digital avatars is about to unfold...
-                </p>
-            </div>
-          </div>
         </div>
-      </div>
+        
+        <!-- Countdown -->
+        <div class="flex gap-4 justify-center mb-8 flex-wrap">
+            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+                <div class="text-2xl font-bold text-yellow-400" id="days">3</div>
+                <div class="text-sm text-gray-300">Days</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+                <div class="text-2xl font-bold text-yellow-400" id="hours">00</div>
+                <div class="text-sm text-gray-300">Hours</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+                <div class="text-2xl font-bold text-yellow-400" id="minutes">00</div>
+                <div class="text-sm text-gray-300">Minutes</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+                <div class="text-2xl font-bold text-yellow-400" id="seconds">00</div>
+                <div class="text-sm text-gray-300">Seconds</div>
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <p class="text-gray-400 text-lg">
+            The future of digital avatars is about to unfold...
+        </p>
     </div>
+    
+    <!-- Floating Crypto Symbols -->
+    <div id="crypto-container"></div>
 
-    <!-- Crypto Animation Flows -->
-    <div class="crypto-animations">
-        <!-- Floating Crypto Symbols -->
-        <div class="crypto-symbols"></div>
+    <script>
+        // Countdown Timer
+        const launchDate = new Date().getTime() + (3 * 24 * 60 * 60 * 1000);
         
-        <!-- Golden Particles -->
-        <div class="golden-particles"></div>
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+            
+            if (distance < 0) return;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
         
-        <!-- Blockchain Network -->
-        <div class="blockchain-network"></div>
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
         
-        <!-- Money Flow Animation -->
-        <div class="money-flow"></div>
-    </div>
-
-    <script src="coming-soon-final.js"></script>
+        // Floating Crypto Symbols
+        function createCryptoSymbol() {
+            const symbols = ['₿', '$', '💎', '🚀'];
+            const symbol = document.createElement('div');
+            symbol.className = 'crypto-symbol';
+            symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            symbol.style.left = Math.random() * window.innerWidth + 'px';
+            symbol.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            
+            document.getElementById('crypto-container').appendChild(symbol);
+            
+            setTimeout(() => symbol.remove(), 10000);
+        }
+        
+        setInterval(createCryptoSymbol, 2000);
+        
+        // Video Error Handling
+        const video = document.querySelector('video');
+        video.addEventListener('error', () => {
+            console.log('Video failed to load');
+            video.parentElement.innerHTML = '<div class="flex items-center justify-center h-full text-gray-400">Video not available</div>';
+        });
+        
+        video.addEventListener('loadstart', () => console.log('Video loading...'));
+        video.addEventListener('canplay', () => console.log('Video ready to play'));
+    </script>
 </body>
 </html>
