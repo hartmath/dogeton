@@ -14,6 +14,7 @@
         
         .glow-text {
             text-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24;
+            animation: textGlow 3s ease-in-out infinite;
         }
         
         .crypto-symbol {
@@ -30,6 +31,21 @@
             90% { opacity: 0.7; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
+        
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24; }
+            50% { text-shadow: 0 0 30px #fbbf24, 0 0 60px #fbbf24, 0 0 80px #f59e0b; }
+        }
+        
+        .countdown-box {
+            background: #363636;
+            transition: all 0.3s ease;
+        }
+        
+        .countdown-box:hover {
+            background: #404040;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col items-center justify-center">
@@ -41,7 +57,7 @@
         </h1>
         
         <!-- Video Container -->
-        <div class="mb-8 mx-auto max-w-4xl">
+        <div class="mb-6 mx-auto max-w-3xl">
             <div class="relative bg-black rounded-lg overflow-hidden aspect-video">
                 <video 
                     class="w-full h-full object-contain" 
@@ -50,37 +66,45 @@
                     loop 
                     playsinline 
                     preload="auto"
+                    id="mainVideo"
                 >
                     <source src="./video.mp4" type="video/mp4">
-                    <div class="flex items-center justify-center h-full text-gray-400">
-                        Video loading...
-                    </div>
+                    <source src="./WhatsApp Video 2025-08-29 at 05.06.49_e67f76b3.mp4" type="video/mp4">
                 </video>
+                
+                <!-- Fallback if video doesn't load -->
+                <div id="videoFallback" class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900 to-blue-900 hidden">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🎬</div>
+                        <p class="text-xl">Video Loading...</p>
+                        <p class="text-sm mt-2 opacity-75">The revolution is coming</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- Countdown -->
-        <div class="flex gap-4 justify-center mb-8 flex-wrap">
-            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
-                <div class="text-2xl font-bold text-yellow-400" id="days">3</div>
+        <div class="flex gap-3 md:gap-4 justify-center mb-6 flex-wrap">
+            <div class="countdown-box rounded-lg p-4 min-w-[80px]">
+                <div class="text-2xl font-bold text-yellow-400" id="days">00</div>
                 <div class="text-sm text-gray-300">Days</div>
             </div>
-            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+            <div class="countdown-box rounded-lg p-4 min-w-[80px]">
                 <div class="text-2xl font-bold text-yellow-400" id="hours">00</div>
                 <div class="text-sm text-gray-300">Hours</div>
             </div>
-            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+            <div class="countdown-box rounded-lg p-4 min-w-[80px]">
                 <div class="text-2xl font-bold text-yellow-400" id="minutes">00</div>
                 <div class="text-sm text-gray-300">Minutes</div>
             </div>
-            <div class="bg-gray-800 rounded-lg p-4 min-w-[80px]">
+            <div class="countdown-box rounded-lg p-4 min-w-[80px]">
                 <div class="text-2xl font-bold text-yellow-400" id="seconds">00</div>
                 <div class="text-sm text-gray-300">Seconds</div>
             </div>
         </div>
         
         <!-- Subtitle -->
-        <p class="text-gray-400 text-lg">
+        <p class="text-gray-400 text-lg mb-8">
             The future of digital avatars is about to unfold...
         </p>
     </div>
@@ -90,14 +114,19 @@
 
     <script>
         // Countdown Timer - Fixed launch date 
-        // Set to September 1st, 2025 - change this to your actual launch date
         const launchDate = new Date('2025-09-01T00:00:00').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = launchDate - now;
             
-            if (distance < 0) return;
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
             
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -115,12 +144,13 @@
         
         // Floating Crypto Symbols
         function createCryptoSymbol() {
-            const symbols = ['₿', '$', '💎', '🚀'];
+            const symbols = ['₿', '$', '💎', '🚀', '⚡'];
             const symbol = document.createElement('div');
             symbol.className = 'crypto-symbol';
             symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
             symbol.style.left = Math.random() * window.innerWidth + 'px';
             symbol.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            symbol.style.animationDelay = Math.random() * 2 + 's';
             
             document.getElementById('crypto-container').appendChild(symbol);
             
@@ -129,15 +159,32 @@
         
         setInterval(createCryptoSymbol, 2000);
         
-        // Video Error Handling
-        const video = document.querySelector('video');
+        // Video handling
+        const video = document.getElementById('mainVideo');
+        const fallback = document.getElementById('videoFallback');
+        
         video.addEventListener('error', () => {
             console.log('Video failed to load');
-            video.parentElement.innerHTML = '<div class="flex items-center justify-center h-full text-gray-400">Video not available</div>';
+            fallback.classList.remove('hidden');
         });
         
-        video.addEventListener('loadstart', () => console.log('Video loading...'));
-        video.addEventListener('canplay', () => console.log('Video ready to play'));
+        video.addEventListener('loadstart', () => {
+            console.log('Video loading...');
+            fallback.classList.add('hidden');
+        });
+        
+        video.addEventListener('canplay', () => {
+            console.log('Video ready to play');
+            fallback.classList.add('hidden');
+        });
+        
+        // Force video play
+        setTimeout(() => {
+            video.play().catch(e => {
+                console.log('Autoplay failed:', e);
+                fallback.classList.remove('hidden');
+            });
+        }, 1000);
     </script>
 </body>
 </html>
