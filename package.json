@@ -1,17 +1,14 @@
 {
-  "name": "bubbleheads-coming-soon",
-  "version": "1.0.0",
-  "description": "The Bubbleheads - Coming Soon Page",
-  "main": "coming-soon-final.html",
+  "name": "dogeton-v2",
+  "version": "1.0.1",
+  "description": "The Bubbleheads - Coming Soon Page v2",
+  "main": "index.html",
   "scripts": {
     "dev": "serve .",
     "build": "echo 'No build step needed for static site'",
     "start": "serve ."
   },
-  "keywords": ["bubbleheads", "crypto", "nft", "coming-soon"],
+  "keywords": ["bubbleheads", "crypto", "nft", "coming-soon", "dogeton"],
   "author": "The Bubbleheads",
-  "license": "MIT",
-  "devDependencies": {
-    "serve": "^14.2.0"
-  }
+  "license": "MIT"
 }
